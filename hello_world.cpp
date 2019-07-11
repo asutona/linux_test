@@ -5,6 +5,7 @@
 #include <chrono>   
 #include <vector>
 #include <pthread.h>
+#include <thread>
 
 #define SET_NAME(name) test##name
 using namespace std;
@@ -31,13 +32,13 @@ std::vector<std::string> is_prime(int start,int end) {
 
 int main() 
 {
-
-	int numCPU = 3;
+	int numCPU = std::thread::hardware_concurrency();
+//	int numCPU = 3;
 	auto Input = 1000000;
 	using FutureVector = std::vector< std::future<std::vector<std::string>>>;
 	std::cout << "Dectect CPU Count = " << numCPU << std::endl;
-	//std::cout << "Please input how many count of data = ";
-	//std::cin >> Input;
+	std::cout << "Please input how many count of data = ";
+	std::cin >> Input;
 
 	auto Count = Input / numCPU;
 	FutureVector ASYC_OBJ;
